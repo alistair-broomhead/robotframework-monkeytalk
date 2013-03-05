@@ -24,7 +24,6 @@ class Connector(object):
         import urllib2
 
         json_data_in = json.dumps(data)
-        print json_data_in
         request = urllib2.Request(self.url, json_data_in)
         response = urllib2.urlopen(request)
         json_data_out = response.read()
@@ -47,7 +46,7 @@ class Connection(object):
         """
         if comp is None:
             comp = 'View'
-        elif not isinstance(comp, str):
+        elif not (isinstance(comp, str) or isinstance(comp, unicode)):
             raise TypeError("Expected comp as a string or undefined")
         self.state['componentType'] = comp
 
@@ -94,7 +93,7 @@ class Connection(object):
         """
         if id_ is None:
             id_ = '*'
-        elif not isinstance(id_, str):
+        elif not (isinstance(id_, str) or isinstance(id_, unicode)):
             raise TypeError("Expected id_ as a string or undefined")
         self.state['monkeyId'] = id_
 

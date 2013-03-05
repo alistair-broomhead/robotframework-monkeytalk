@@ -22,24 +22,26 @@ class MonkeyTalk(object):
 
     # noinspection PyDocstring
     def monkeytalk_command(self,
-                           component="View",
-                           monkey_id='*',
-                           action='*',
-                           arguments=None,
-                           timeout=None,
-                           thinktime=None):
+                           component,
+                           monkey_id,
+                           action,
+                           arguments='',
+                           timeout='',
+                           thinktime=''):
         """ Runs the given command. If given arguments should be an iterable """
-        if timeout is None:
+        if not timeout:
             timeout = self.timeout
-        if thinktime is None:
+        if not thinktime:
             thinktime = self.thinktime
         connection = Connection(device_ip=self.device_ip,
                                 device_port=self.device_port,
                                 component=component,
-                                thinktime=thinktime,
-                                timeout=timeout,
+                                thinktime=thinktime if thinktime else None,
+                                timeout=timeout if timeout else None,
                                 monkey_id=monkey_id,
                                 mtversion=self.mtversion)
-        if arguments is None:
-            arguments = []
-        connection(action, *arguments)
+        if not arguments:
+            ret = connection(action)
+        else:
+            ret = connection(action, *arguments)
+        assert ret['result'] == 'OK'

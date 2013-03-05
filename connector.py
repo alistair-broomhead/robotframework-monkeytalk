@@ -5,6 +5,7 @@ class giving connection to monkeytalk
 __author__ = 'Alistair Broomhead'
 MONKEYTALK_DEFAULT_PORT = 16863
 
+
 class Connector(object):
     """ Low-level interface for monkeytalk on the device """
 
@@ -28,6 +29,7 @@ class Connector(object):
         response = urllib2.urlopen(request)
         json_data_out = response.read()
         return json.loads(json_data_out)
+
 
 class Connection(object):
     """ Mid-level interface for monkeytalk on the device """

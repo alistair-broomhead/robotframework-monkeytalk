@@ -6,8 +6,8 @@ __author__ = 'Alistair Broomhead'
 
 
 class MonkeyTalk(object):
-    """ Provides interface
-    """
+    """ Provides interface """
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     def __init__(self,
                  device_ip,
                  device_port=MONKEYTALK_DEFAULT_PORT,

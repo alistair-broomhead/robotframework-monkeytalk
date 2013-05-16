@@ -1,6 +1,9 @@
 """
 class giving connection to monkeytalk
 """
+import json
+import urllib2
+from time import time
 
 __author__ = 'Alistair Broomhead'
 MONKEYTALK_DEFAULT_PORT = 16863
@@ -20,9 +23,6 @@ class Connector(object):
             'ip': self.device_ip, 'port': self.device_port}
 
     def __call__(self, data):
-        import json
-        import urllib2
-
         json_data_in = json.dumps(data)
         request = urllib2.Request(self.url, json_data_in)
         response = urllib2.urlopen(request)
@@ -142,6 +142,5 @@ class Connection(object):
         data = self.state.copy()
         data['action'] = action
         data['args'] = args
-        from time import time
         data['timestamp'] = int(time() * 1000)
         return self.connector(data)
